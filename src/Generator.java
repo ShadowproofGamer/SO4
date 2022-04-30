@@ -16,12 +16,12 @@ public class Generator {
     /**
      * number of pages per process
      */
-    int pages = 7;
+    int pages = 13;
     /**
      * if > -1 than the processes should have random amount of pages,
      * with Min at {@code pagesLowerBound} and high at {@link #pages}
      */
-    int pagesLowerBound = -1;
+    int pagesLowerBound = 2;
     //random generator seeds/roots
     int lower = 2;
     int higher = 4;
@@ -78,26 +78,25 @@ public class Generator {
 
     /**
      *
-     * @return
+     * {@code tPages} dictates the amount of pages each of the process' require
+     * minimal amount is bound by {@link #pagesLowerBound} and
+     * maximal amount is bound by {@link #pages}
+     * @return array of processes
      */
     public Process[] generateProcess() {
         int startTime = 0;
         Process[] result = new Process[processAmount];
         int temp = 0;
-        /**
-         * {@code tPages} dictates the amount of pages each of the process' require
-         * minimal amount is bound by {@link pagesLowerBound} and
-         * maximal amount is bound by {@link pages}
-         */
+
         int tPages = pages;
         for (int i = 0; i < processAmount; i++) {
-            if (pagesLowerBound>=0) tPages = rand.nextInt(pages-pagesLowerBound)+pagesLowerBound;
+            if (pagesLowerBound>0) tPages = rand.nextInt(pages-pagesLowerBound)+pagesLowerBound;
             int[] p = new int[tPages];
             for (int j = 0; j < tPages; j++) {
                 p[j] = temp + j;
-                //temp++;
             }
-            ReferenceSequence[] rs = generateReferenceSequenceArray(startTime, temp);
+
+            ReferenceSequence[] rs = generateReferenceSequenceArray(startTime, temp, tPages);
             temp += tPages;
             result[i] = new Process(p, rs, startTime);
             startTime += processStart;
@@ -105,17 +104,17 @@ public class Generator {
         return result;
     }
 
-    private ReferenceSequence[] generateReferenceSequenceArray(int startTime, int startPage) {
+    private ReferenceSequence[] generateReferenceSequenceArray(int startTime, int startPage, int amountOfPages) {
         ReferenceSequence[] result = new ReferenceSequence[sequencesLength];
         int start = startTime;
         for (int i = 0; i < sequencesLength; i++) {
-            result[i] = new ReferenceSequence(generateIncLocalityOptions(startPage), start);
+            result[i] = new ReferenceSequence(generateIncLocalityOptions(startPage, amountOfPages), start);
             start += processStart;
         }
         return result;
     }
 
-    private int[] generateIncLocalityOptions(int startPage) {
+    private int[] generateIncLocalityOptions(int startPage, int amountOfPages) {
         //System.out.println("jeden mniejsze: " + lower + "\tjeden większe: " + higher + "\ttakie same:" + same + "\tlosowe:" + random);
         //Random rand = new Random();
         int temp = 0;
@@ -126,9 +125,9 @@ public class Generator {
             int r = temp;
             if (op <= lower) {
                 r = temp - 1;
-                if (r < 0) r += pages;
-            } else if (op <= (lower + higher)) r = abs(temp + 1) % pages;
-            else if (op <= (lower + higher + random)) r = rand.nextInt(pages);
+                if (r < 0) r += amountOfPages;
+            } else if (op <= (lower + higher)) r = abs(temp + 1) % amountOfPages;
+            else if (op <= (lower + higher + random)) r = rand.nextInt(amountOfPages);
             temp = r;
             r += startPage;
             result[i] = r;
