@@ -1,18 +1,29 @@
 public class LRU {
+    int[] frame;
+    int[] time;
+    boolean firstRun = true;
+    public LRU(int frames){
+        frame=new int[frames];
+        time=new int[frames];
+    }
+
     /**
      *
      * @param references array of references to pages
      * @param frames number of frames delegated to this computer/thread
      * @return returns number of missing page errors
      */
-    public static int count(int[] references, int frames) {
-        int[] frame = new int[frames];
-        int[] time = new int[frames];
+    public int count(int[] references, int frames) {
+
         int t=-1;
         int result=0;
-        for (int i = 0; i < frames; i++) {
-            frame[i]=-1;
+        if (firstRun){
+            for (int i = 0; i < frames; i++) {
+                frame[i]=-1;
+            }
+            firstRun=false;
         }
+
         for (int r : references) {
             boolean b=false;
             for (int i = 0; i< frames; i++) {

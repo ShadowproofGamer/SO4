@@ -52,13 +52,13 @@ public class Generator {
      * @param numberOfReferences number of references per reference sequence
      * @param minNumberOfReferences minimal number of references per reference sequence
      * @param pages number/maximal number of pages per process
-     * @param pagesLowerBound minimal number of pages per process
+     * @param pagesLowerBound minimal number of pages per process. If 0 than all processes have the same amount specified in: {@link #pages}
      * @param lower probability for lower page value
      * @param higher probability for higher page value
      * @param same probability for same page value
      * @param random probability for random page value
      * @param processAmount amount of processes generated
-     * @param processStart increment of time of every process
+     * @param processStart increment of time of every process arrival. DEPRECIATED! DON'T USE! SHOULD BE 0
      * @param sequencesLength number of sequence reference arrays in each process
      */
     public Generator(int numberOfReferences, int minNumberOfReferences, int pages, int pagesLowerBound, int lower, int higher, int same, int random,
@@ -72,7 +72,7 @@ public class Generator {
         this.same = same;
         this.random = random;
         this.processAmount = processAmount;
-        this.processStart = processStart;
+        //this.processStart = processStart;
         this.sequencesLength = sequencesLength;
     }
 
@@ -90,7 +90,7 @@ public class Generator {
 
         int tPages = pages;
         for (int i = 0; i < processAmount; i++) {
-            if (pagesLowerBound>0) tPages = rand.nextInt(pages-pagesLowerBound)+pagesLowerBound;
+            if (pagesLowerBound>0 && pages>pagesLowerBound) tPages = rand.nextInt(pages-pagesLowerBound)+pagesLowerBound;
             int[] p = new int[tPages];
             for (int j = 0; j < tPages; j++) {
                 p[j] = temp + j;

@@ -8,5 +8,7 @@ public class Main {
                 proc) {
             System.out.println(p);
         }
+        int frames = 120;
+        EqualAllocation.equalAllocation(proc.clone(), frames);
     }
 }
