@@ -40,7 +40,7 @@ public class Allocator {
         for (int i = 0; i < processes.length; i++) {
             sum += errorsPerProcess[i];
         }
-        System.out.println("\nEqualAllocation");
+        System.out.println("\n\tEqualAllocation");
         System.out.println("framePerProcess: " + Arrays.toString(framePerProcess));
         System.out.println("leftovers: " + leftovers + " Is it optimal: " + optimal);
         System.out.println("EqualAllocation page errors: " + sum + "\nerror of each of the processes:" + Arrays.toString(errorsPerProcess));
@@ -89,7 +89,7 @@ public class Allocator {
         }
         leftovers=frames-leftovers;
 
-        String bef = "\nbefore optimization: "+Arrays.toString(framePerProcess);
+        String bef = "before optimization: "+Arrays.toString(framePerProcess);
         //optimizer delegating all frames that are left:
         if (optimal && overflow) {
             ArrayList<Integer> arr = new ArrayList<>();
@@ -119,7 +119,7 @@ public class Allocator {
         for (int s : errorsPerProcess) {
             sum += s;
         }
-        System.out.println("\nProportionalAllocation");
+        System.out.println("\n\tProportionalAllocation");
         System.out.println(bef);
         System.out.println("framePerProcess: " + Arrays.toString(framePerProcess));
         System.out.println("leftovers: " + leftovers + " Is it optimal: " + optimal);
@@ -127,4 +127,6 @@ public class Allocator {
 
 
     }
+
+
 }

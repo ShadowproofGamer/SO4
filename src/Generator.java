@@ -8,7 +8,7 @@ public class Generator {
     /**
      * number of references per reference sequence
      */
-    int numberOfReferences = 100;
+    int numberOfReferences = 50;
     /**
      * minimal number of references per reference sequence
      */
@@ -39,7 +39,7 @@ public class Generator {
     /**
      * number of sequence reference arrays in each process
      */
-    int sequencesLength = 20;
+    int sequencesLength = 40;
 
     /**
      *Basic constructor. All values are preset.
@@ -58,7 +58,7 @@ public class Generator {
      * @param same probability for same page value
      * @param random probability for random page value
      * @param processAmount amount of processes generated
-     * @param processStart increment of time of every process arrival. DEPRECIATED! DON'T USE! SHOULD BE 0
+     * @param processStart increment of time of every process arrival. DEPRECIATED
      * @param sequencesLength number of sequence reference arrays in each process
      */
     public Generator(int numberOfReferences, int minNumberOfReferences, int pages, int pagesLowerBound, int lower, int higher, int same, int random,
