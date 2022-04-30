@@ -1,6 +1,7 @@
 public class LRU {
     int[] frame;
     int[] time;
+    int t=-1;
     boolean firstRun = true;
     public LRU(int frames){
         frame=new int[frames];
@@ -15,7 +16,7 @@ public class LRU {
      */
     public int count(int[] references, int frames) {
 
-        int t=-1;
+
         int result=0;
         if (firstRun){
             for (int i = 0; i < frames; i++) {

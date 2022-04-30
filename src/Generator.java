@@ -39,7 +39,7 @@ public class Generator {
     /**
      * number of sequence reference arrays in each process
      */
-    int sequencesLength = 10;
+    int sequencesLength = 20;
 
     /**
      *Basic constructor. All values are preset.
@@ -64,7 +64,7 @@ public class Generator {
     public Generator(int numberOfReferences, int minNumberOfReferences, int pages, int pagesLowerBound, int lower, int higher, int same, int random,
                      int processAmount, int processStart, int sequencesLength) {
         this.numberOfReferences = numberOfReferences;
-        this.minNumberOfReferences = minNumberOfReferences;
+        //this.minNumberOfReferences = minNumberOfReferences;
         this.pages = pages;
         this.pagesLowerBound = pagesLowerBound;
         this.lower = lower;
