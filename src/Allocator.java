@@ -88,14 +88,26 @@ public class Allocator {
             leftovers += counter;
         }
         leftovers=frames-leftovers;
+
+        String bef = "\nbefore optimization: "+Arrays.toString(framePerProcess);
+        //optimizer delegating all frames that are left:
         if (optimal && overflow) {
-            int temp = 0;
+            ArrayList<Integer> arr = new ArrayList<>();
             while (leftovers > 0) {
-                framePerProcess[temp % framePerProcess.length]++;
-                temp++;
+                int min=9999;
+                int index=0;
+                for (int i = 0; i < framePerProcess.length; i++) {
+                    if (framePerProcess[i]<min && !arr.contains(i)){
+                        min=framePerProcess[i];
+                        index=i;
+                    }
+                }
+                framePerProcess[index]++;
+                arr.add(index);
                 leftovers--;
             }
         }
+
         for (int i = 0; i < processes.length; i++) {
             LRU lru = new LRU(framePerProcess[i]);
             for (ReferenceSequence rs :
@@ -108,6 +120,7 @@ public class Allocator {
             sum += s;
         }
         System.out.println("\nProportionalAllocation");
+        System.out.println(bef);
         System.out.println("framePerProcess: " + Arrays.toString(framePerProcess));
         System.out.println("leftovers: " + leftovers + " Is it optimal: " + optimal);
         System.out.println("EqualAllocation page errors: " + sum + "\nerror of each of the processes:" + Arrays.toString(errorsPerProcess));
