@@ -8,7 +8,7 @@ public class Generator {
     /**
      * number of references per reference sequence
      */
-    int numberOfReferences = 50;
+    int numberOfReferences = 100;
     /**
      * minimal number of references per reference sequence
      */
@@ -39,7 +39,7 @@ public class Generator {
     /**
      * number of sequence reference arrays in each process
      */
-    int sequencesLength = 40;
+    int sequencesLength = 50;
 
     /**
      *Basic constructor. All values are preset.
